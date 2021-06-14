@@ -50,12 +50,15 @@ class Login:
     # function verifying age of user
     def player_id(self):
         dt = datetime.today()
-        regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
+        ex = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
         try:
             for i in range(len(self.email_entry.get())):
-                if str(self.email_entry.get()[i]) == "@":
-                    messagebox.showerror("Error", "Email is not valid")
-                    break
+                if re.search(ex, self.email_entry.get()):
+                    with open("Emails.txt", "w+") as f:
+                        f.write(self.email_entry.get())
+                else:
+                    messagebox.showerror("Error", "Invalid Email")
+                    root.destroy()
             for x in range(int(self.id_entry.get())):
                 res = int(self.id_entry.get()[0:2]) - int(dt.strftime("%y"))
                 if res >= 18:
@@ -68,7 +71,6 @@ class Login:
                 else:
                     messagebox.showerror("Error", "You are too young to play Lotto")
                     break
-
         except ValueError:
             if self.id_entry.get() != int:
                 messagebox.showerror("Error", "The id number must be an integer")
