@@ -47,7 +47,7 @@ class Login:
         self.img = PhotoImage(file="8ba14010ac1b42b89d3fd08ac65c4626.png")
         self.canvas.create_image(10, 10, anchor=NW, image=self.img)
 
-    # function verifying age of user
+    # function verifying age and email of the user
     def player_id(self):
         dt = datetime.today()
         ex = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
@@ -56,6 +56,11 @@ class Login:
                 if re.search(ex, self.email_entry.get()):
                     with open("Emails.txt", "w+") as f:
                         f.write(self.email_entry.get())
+                        f.write("\n")
+                        f.write(self.name_entry.get())
+                        f.write("\n")
+                        f.write(self.id_entry.get())
+                        f.write("\n")
                 else:
                     messagebox.showerror("Error", "Invalid Email")
                     root.destroy()
@@ -74,6 +79,8 @@ class Login:
         except ValueError:
             if self.id_entry.get() != int:
                 messagebox.showerror("Error", "The id number must be an integer")
+            elif self.name_entry.get() != str:
+                messagebox.showerror("Error", "Name must be a string or in letters")
 
     # function for clear button
     def clear_func(self):
