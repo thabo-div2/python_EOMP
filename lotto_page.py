@@ -127,20 +127,43 @@ class LottoPage:
         self.forty_9.place(x=250, y=290)
         self.lotto_btn = Button(self.frame, text="Play Lotto!", command=self.lotto_draw)
         self.lotto_btn.place(x=10, y=330)
-        self.clear_btn = Button(self.frame, text="Clear")
-        self.fin_btn = Button(self.frame, text="Exit")
+        self.clear_btn = Button(self.frame, text="Clear", command=self.clear_function)
+        self.clear_btn.place(x=90, y=330)
+        self.fin_btn = Button(self.frame, text="Exit", command=self.exit_func)
+        self.fin_btn.place(x=150, y=330)
         self.list1 = []
         self.list2 = []
         self.list3 = []
 
     def lotto_draw(self):
         y = 0
+        prize = 0
         lotto = random.sample(range(1, 50), 6)
         for x in self.list1:
             if x in lotto:
                 y += 1
-        messagebox.showinfo("Status", "Set had: " + str(y))
-        messagebox.showinfo("Lotto", "Numbers are: " + str(lotto))
+
+                if x == 6:
+                    prize = 10000000.00
+
+                elif x == 5:
+                    prize = 8584.00
+
+                elif x == 4:
+                    prize = 2384.00
+
+                elif x == 3:
+                    prize = 100.50
+
+                elif x == 2:
+                    prize = 20.00
+
+                elif x <= 1:
+                    prize = 0
+
+            messagebox.showinfo("Status", "Set had: " + str(y))
+            messagebox.showinfo("Lotto", "Numbers are: " + str(lotto))
+            break
 
     def play_num(self, num):
         if len(self.list1) <= 5 and num not in self.list1:
@@ -157,6 +180,14 @@ class LottoPage:
 
         else:
             messagebox.showerror("Error", "You can choose a number once")
+
+    def clear_function(self):
+        self.answer1.config(text="")
+        self.answer2.config(text="")
+        self.answer3.config(text="")
+
+    def exit_func(self):
+        return window.destroy()
 
 
 
