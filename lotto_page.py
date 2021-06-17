@@ -29,6 +29,8 @@ class LottoPage:
         self.answer2.place(x=10, y=410)
         self.answer3 = Label(self.frame, text="", bg="#ffff00")
         self.answer3.place(x=10, y=450)
+        self.claim_lab = Label(self.frame, text="Prize(in rands): ")
+        self.claim_lab.place(x=170, y=410)
         # Buttons
         self.first = Button(self.frame, text="1", command=lambda: self.play_num(1))
         self.first.place(x=10, y=50)
@@ -132,8 +134,10 @@ class LottoPage:
         self.lotto_btn1.place(x=10, y=330)
         self.clear_btn = Button(self.frame, text="Clear", command=self.clear_function)
         self.clear_btn.place(x=110, y=330)
-        self.fin_btn = Button(self.frame, text="Exit", command=self.exit_func)
-        self.fin_btn.place(x=175, y=330)
+        self.fin_btn = Button(self.frame, text="Exit", bg="red", fg="#ffffff", command=self.exit_func)
+        self.fin_btn.place(x=280, y=330)
+        self.claim_prize = Button(self.frame, text="Claim Prize", bg="green", fg="#ffffff", command=self.claim_prize_func)
+        self.claim_prize.place(x=175, y=330)
         self.list1 = []
         self.list2 = []
         self.list3 = []
@@ -229,6 +233,10 @@ class LottoPage:
 
         else:
             messagebox.showerror("Error", "You can choose a number once")
+
+    def claim_prize_func(self):
+        window.destroy()
+        import Currency
 
     def clear_function(self):
         self.answer1.config(text="")
