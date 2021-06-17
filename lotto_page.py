@@ -21,11 +21,11 @@ class LottoPage:
         self.lotto_lab = Label(self.frame, text="Pick 6 numbers: ")
         self.lotto_lab.place(x=150, y=10)
         self.answer1 = Label(self.frame, text="", bg="#ffff00")
-        self.answer1.place(x=10, y=410)
+        self.answer1.place(x=10, y=370)
         self.answer2 = Label(self.frame, text="", bg="#ffff00")
-        self.answer2.place(x=10, y=450)
+        self.answer2.place(x=10, y=410)
         self.answer3 = Label(self.frame, text="", bg="#ffff00")
-        self.answer3.place(x=10, y=490)
+        self.answer3.place(x=10, y=450)
         # Buttons
         self.first = Button(self.frame, text="1", command=lambda: self.play_num(1))
         self.first.place(x=10, y=50)
@@ -125,45 +125,89 @@ class LottoPage:
         self.forty_8.place(x=210, y=290)
         self.forty_9 = Button(self.frame, text="49", width=1, command=lambda: self.play_num(49))
         self.forty_9.place(x=250, y=290)
-        self.lotto_btn = Button(self.frame, text="Play Lotto!", command=self.lotto_draw)
-        self.lotto_btn.place(x=10, y=330)
+        self.lotto_btn1 = Button(self.frame, text="Play Lotto!", command=self.lotery_drw3)
+        self.lotto_btn1.place(x=10, y=330)
         self.clear_btn = Button(self.frame, text="Clear", command=self.clear_function)
-        self.clear_btn.place(x=90, y=330)
+        self.clear_btn.place(x=110, y=330)
         self.fin_btn = Button(self.frame, text="Exit", command=self.exit_func)
-        self.fin_btn.place(x=150, y=330)
+        self.fin_btn.place(x=175, y=330)
         self.list1 = []
         self.list2 = []
         self.list3 = []
 
-    def lotto_draw(self):
+    def lotto_draw1(self):
+        global prize
         y = 0
-        prize = 0
         lotto = random.sample(range(1, 50), 6)
-        for x in self.list1:
-            if x in lotto:
+        for x in range(0, 6):
+            if self.list1[x] == lotto[x]:
                 y += 1
+        if y == 6:
+            prize = 10000000
+        elif y == 5:
+            prize = 8584
+        elif y == 4:
+            prize = 2384
+        elif y == 3:
+            prize = 100.50
+        elif y == 2:
+            prize = 20
+        elif y < 2:
+            prize = 0
+        messagebox.showinfo("Status", "Set had: " + str(y))
+        messagebox.showinfo("Lotto", "Numbers are: " + str(lotto))
+        messagebox.showinfo("Winnings", "You have won R" + str(prize))
 
-                if x == 6:
-                    prize = 10000000.00
+    def lottery_draw2(self):
+        global prize
+        y = 0
+        lotto = random.sample(range(1, 50), 6)
+        for i in range(0, 6):
+            if self.list2[i] == lotto[i]:
+                y += 1
+        if y == 6:
+            prize = 10000000
+        elif y == 5:
+            prize = 8584
+        elif y == 4:
+            prize = 2384
+        elif y == 3:
+            prize = 100.50
+        elif y == 2:
+            prize = 20
+        elif y < 2:
+            prize = 0
+        messagebox.showinfo("Status", "Set had: " + str(y))
+        messagebox.showinfo("Lotto", "Numbers are: " + str(lotto))
+        messagebox.showinfo("Winnings", "You have won R" + str(prize))
 
-                elif x == 5:
-                    prize = 8584.00
+    def lotery_drw3(self):
+        self.lotto_draw1()
+        self.lottery_draw2()
 
-                elif x == 4:
-                    prize = 2384.00
+        global prize
+        y = 0
+        lotto = random.sample(range(1, 50), 6)
+        for j in range(0, 6):
+            if self.list3[j] == lotto[j]:
+                y += 1
+        if y == 6:
+            prize = 10000000
+        elif y == 5:
+            prize = 8584
+        elif y == 4:
+            prize = 2384
+        elif y == 3:
+            prize = 100.50
+        elif y == 2:
+            prize = 20
+        elif y < 2:
+            prize = 0
+        messagebox.showinfo("Status", "Set had: " + str(y))
+        messagebox.showinfo("Lotto", "Numbers are: " + str(lotto))
+        messagebox.showinfo("Winnings", "You have won R" + str(prize))
 
-                elif x == 3:
-                    prize = 100.50
 
-                elif x == 2:
-                    prize = 20.00
-
-                elif x <= 1:
-                    prize = 0
-
-            messagebox.showinfo("Status", "Set had: " + str(y))
-            messagebox.showinfo("Lotto", "Numbers are: " + str(lotto))
-            break
 
     def play_num(self, num):
         if len(self.list1) <= 5 and num not in self.list1:
