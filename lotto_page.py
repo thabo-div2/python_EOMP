@@ -4,12 +4,15 @@ from tkinter import *
 from tkinter import messagebox
 import random
 
+
+# Tkinter window
 window = Tk()
 window.title("Lotto Draw!")
 window.geometry("650x650")
 window.config(bg="#ffff00")
 
 
+# Class for Lotto Play
 class LottoPage:
     label_text = StringVar()
 
@@ -18,8 +21,8 @@ class LottoPage:
         self.frame = Frame(master, bg="#ffff00")
         self.frame.place(x=10, y=10, width=500, height=500)
         # Labels
-        self.lotto_lab = Label(self.frame, text="Pick 6 numbers: ")
-        self.lotto_lab.place(x=150, y=10)
+        self.lotto_lab = Label(self.frame, text="LOTTO ", font="arial 20", bg="#ffff00")
+        self.lotto_lab.place(x=10, y=10)
         self.answer1 = Label(self.frame, text="", bg="#ffff00")
         self.answer1.place(x=10, y=370)
         self.answer2 = Label(self.frame, text="", bg="#ffff00")
@@ -125,7 +128,7 @@ class LottoPage:
         self.forty_8.place(x=210, y=290)
         self.forty_9 = Button(self.frame, text="49", width=1, command=lambda: self.play_num(49))
         self.forty_9.place(x=250, y=290)
-        self.lotto_btn1 = Button(self.frame, text="Play Lotto!", command=self.lotery_drw3)
+        self.lotto_btn1 = Button(self.frame, text="Play Lotto!", command=self.lotto_draw3)
         self.lotto_btn1.place(x=10, y=330)
         self.clear_btn = Button(self.frame, text="Clear", command=self.clear_function)
         self.clear_btn.place(x=110, y=330)
@@ -135,6 +138,7 @@ class LottoPage:
         self.list2 = []
         self.list3 = []
 
+    # function to compare the lists to the lotto list
     def lotto_draw1(self):
         global prize
         y = 0
@@ -158,6 +162,7 @@ class LottoPage:
         messagebox.showinfo("Lotto", "Numbers are: " + str(lotto))
         messagebox.showinfo("Winnings", "You have won R" + str(prize))
 
+    # function to compare list 2 to lotto list
     def lottery_draw2(self):
         global prize
         y = 0
@@ -181,7 +186,8 @@ class LottoPage:
         messagebox.showinfo("Lotto", "Numbers are: " + str(lotto))
         messagebox.showinfo("Winnings", "You have won R" + str(prize))
 
-    def lotery_drw3(self):
+    # function comparing all the list to 3 separate lotto list
+    def lotto_draw3(self):
         self.lotto_draw1()
         self.lottery_draw2()
 
@@ -207,8 +213,7 @@ class LottoPage:
         messagebox.showinfo("Lotto", "Numbers are: " + str(lotto))
         messagebox.showinfo("Winnings", "You have won R" + str(prize))
 
-
-
+    # function to put values to the button and add them to the empty list
     def play_num(self, num):
         if len(self.list1) <= 5 and num not in self.list1:
             self.list1.append(num)
@@ -229,11 +234,13 @@ class LottoPage:
         self.answer1.config(text="")
         self.answer2.config(text="")
         self.answer3.config(text="")
+        self.list1 = []
+        self.list2 = []
+        self.list3 = []
 
+    # function to exit the program
     def exit_func(self):
         return window.destroy()
-
-
 
 
 LottoPage(window)
