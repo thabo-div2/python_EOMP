@@ -55,8 +55,14 @@ class CurrencyConverter:
 
         # Buttons
         self.convert_btn = Button(master, text="Convert Currency")
+        self.convert_btn.place(x=350, y=250)
+        self.submit_info = Button(master, text="Submit Info")
+        self.submit_info.place(x=10, y=450)
 
-        # function to submit information and winnings
+    # function to submit information and winnings
+    def convert_func(self):
+        pass
+
 
 
 CurrencyConverter(currency)

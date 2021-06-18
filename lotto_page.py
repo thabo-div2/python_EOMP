@@ -177,6 +177,9 @@ class LottoPage:
         messagebox.showinfo("Lotto", "Numbers are: " + str(lotto) + "\n" + str(match))
         messagebox.showinfo("Winnings", "You have won R" + str(prize))
         self.prize_lab.config(text=prize)
+        with open("Emails.txt", "a+") as f:
+            f.write(str(prize))
+            f.write("\n")
 
     # function to compare list 2 to lotto list
     def lottery_draw2(self):
@@ -205,6 +208,9 @@ class LottoPage:
         messagebox.showinfo("Lotto", "Numbers are: " + str(lotto) + "\n" + str(match))
         messagebox.showinfo("Winnings", "You have won R" + str(prize))
         self.prize_lab2.config(text=prize)
+        with open("Emails.txt", "a+") as f:
+            f.write(str(prize))
+            f.write("\n")
 
     # function comparing all the list to 3 separate lotto list
     def lotto_draw3(self):
@@ -236,6 +242,9 @@ class LottoPage:
         messagebox.showinfo("Lotto", "Numbers are: " + str(lotto) + "\n" + str(match))
         messagebox.showinfo("Winnings", "You have won R" + str(prize))
         self.prize_lab3.config(text=prize)
+        with open("Emails.txt", "a+") as f:
+            f.write(str(prize))
+            f.write("\n")
 
     # function to put values to the button and add them to the empty list
     def play_num(self, num):
