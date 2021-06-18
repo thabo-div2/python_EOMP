@@ -11,6 +11,7 @@ window.title("Lotto Draw!")
 window.geometry("650x650")
 window.config(bg="#ffff00")
 
+prize = 0
 
 # Class for Lotto Play
 class LottoPage:
@@ -29,8 +30,14 @@ class LottoPage:
         self.answer2.place(x=10, y=410)
         self.answer3 = Label(self.frame, text="", bg="#ffff00")
         self.answer3.place(x=10, y=450)
-        self.claim_lab = Label(self.frame, text="Prize(in rands): ")
-        self.claim_lab.place(x=170, y=410)
+        self.claim_lab = Label(self.frame, text="Prize(in rands): ", bg="#ffff00")
+        self.claim_lab.place(x=170, y=370)
+        self.prize_lab = Label(self.frame, text="", bg="#ffff00")
+        self.prize_lab.place(x=270, y=370)
+        self.prize_lab2 = Label(self.frame, text="", bg="#ffff00")
+        self.prize_lab2.place(x=270, y=410)
+        self.prize_lab3 = Label(self.frame, text="", bg="#ffff00")
+        self.prize_lab3.place(x=270, y=450)
         # Buttons
         self.first = Button(self.frame, text="1", command=lambda: self.play_num(1))
         self.first.place(x=10, y=50)
@@ -147,48 +154,57 @@ class LottoPage:
         global prize
         y = 0
         lotto = random.sample(range(1, 50), 6)
-        for x in range(0, 6):
-            if self.list1[x] == lotto[x]:
-                y += 1
-        if y == 6:
+        lotto.sort()
+        self.list1.sort()
+        match = set(self.list1).intersection(lotto)
+        for x in range(len(match)):
+            # if self.list1[x] == lotto[x]:
+            y += 1
+
+        if y == 6 and y == len(match):
             prize = 10000000
-        elif y == 5:
+        elif y == 5 and y == len(match):
             prize = 8584
-        elif y == 4:
+        elif y == 4 and y == len(match):
             prize = 2384
-        elif y == 3:
+        elif y == 3 and y == len(match):
             prize = 100.50
-        elif y == 2:
+        elif y == 2 and y == len(match):
             prize = 20
-        elif y < 2:
+        elif y < 2 and y == len(match):
             prize = 0
         messagebox.showinfo("Status", "Set had: " + str(y))
-        messagebox.showinfo("Lotto", "Numbers are: " + str(lotto))
+        messagebox.showinfo("Lotto", "Numbers are: " + str(lotto) + "\n" + str(match))
         messagebox.showinfo("Winnings", "You have won R" + str(prize))
+        self.prize_lab.config(text=prize)
 
     # function to compare list 2 to lotto list
     def lottery_draw2(self):
         global prize
         y = 0
         lotto = random.sample(range(1, 50), 6)
-        for i in range(0, 6):
-            if self.list2[i] == lotto[i]:
-                y += 1
-        if y == 6:
+        lotto.sort()
+        self.list2.sort()
+        match = set(self.list2).intersection(lotto)
+        for i in range(len(match)):
+            # if self.list2[i] == lotto[i]:
+            y += 1
+        if y == 6 and y == len(match):
             prize = 10000000
-        elif y == 5:
+        elif y == 5 and y == len(match):
             prize = 8584
-        elif y == 4:
+        elif y == 4 and y == len(match):
             prize = 2384
-        elif y == 3:
+        elif y == 3 and y == len(match):
             prize = 100.50
-        elif y == 2:
+        elif y == 2 and y == len(match):
             prize = 20
-        elif y < 2:
+        elif y < 2 and y == len(match):
             prize = 0
         messagebox.showinfo("Status", "Set had: " + str(y))
-        messagebox.showinfo("Lotto", "Numbers are: " + str(lotto))
+        messagebox.showinfo("Lotto", "Numbers are: " + str(lotto) + "\n" + str(match))
         messagebox.showinfo("Winnings", "You have won R" + str(prize))
+        self.prize_lab2.config(text=prize)
 
     # function comparing all the list to 3 separate lotto list
     def lotto_draw3(self):
@@ -198,24 +214,28 @@ class LottoPage:
         global prize
         y = 0
         lotto = random.sample(range(1, 50), 6)
-        for j in range(0, 6):
-            if self.list3[j] == lotto[j]:
-                y += 1
-        if y == 6:
+        lotto.sort()
+        self.list3.sort()
+        match = set(self.list3).intersection(lotto)
+        for j in range(len(match)):
+            # if self.list3[j] == lotto[j]:
+            y += 1
+        if y == 6 and y == len(match):
             prize = 10000000
-        elif y == 5:
+        elif y == 5 and y == len(match):
             prize = 8584
-        elif y == 4:
+        elif y == 4 and y == len(match):
             prize = 2384
-        elif y == 3:
+        elif y == 3 and y == len(match):
             prize = 100.50
-        elif y == 2:
+        elif y == 2 and y == len(match):
             prize = 20
-        elif y < 2:
+        elif y < 2 and y == len(match):
             prize = 0
         messagebox.showinfo("Status", "Set had: " + str(y))
-        messagebox.showinfo("Lotto", "Numbers are: " + str(lotto))
+        messagebox.showinfo("Lotto", "Numbers are: " + str(lotto) + "\n" + str(match))
         messagebox.showinfo("Winnings", "You have won R" + str(prize))
+        self.prize_lab3.config(text=prize)
 
     # function to put values to the button and add them to the empty list
     def play_num(self, num):
