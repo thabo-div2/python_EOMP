@@ -3,6 +3,8 @@
 from tkinter import *
 from tkinter import messagebox
 import random
+import smtplib
+from playsound import playsound
 
 
 # Tkinter window
@@ -11,7 +13,9 @@ window.title("Lotto Draw!")
 window.geometry("650x650")
 window.config(bg="#ffff00")
 
-prize = 0
+prize1 = 0
+prize2 = 0
+prize3 = 0
 
 # Class for Lotto Play
 class LottoPage:
@@ -151,7 +155,7 @@ class LottoPage:
 
     # function to compare the lists to the lotto list
     def lotto_draw1(self):
-        global prize
+        global prize1
         y = 0
         lotto = random.sample(range(1, 50), 6)
         lotto.sort()
@@ -162,28 +166,28 @@ class LottoPage:
             y += 1
 
         if y == 6 and y == len(match):
-            prize = 10000000
+            prize1 = 10000000
         elif y == 5 and y == len(match):
-            prize = 8584
+            prize1 = 8584
         elif y == 4 and y == len(match):
-            prize = 2384
+            prize1 = 2384
         elif y == 3 and y == len(match):
-            prize = 100.50
+            prize1 = 100.50
         elif y == 2 and y == len(match):
-            prize = 20
+            prize1 = 20
         elif y < 2 and y == len(match):
-            prize = 0
+            prize1 = 0
         messagebox.showinfo("Status", "Set had: " + str(y))
         messagebox.showinfo("Lotto", "Numbers are: " + str(lotto) + "\n" + str(match))
-        messagebox.showinfo("Winnings", "You have won R" + str(prize))
-        self.prize_lab.config(text=prize)
+        messagebox.showinfo("Winnings", "You have won R" + str(prize1))
+        self.prize_lab.config(text=prize1)
         with open("Emails.txt", "a+") as f:
-            f.write(str(prize))
+            f.write("Your winnings in rands: R" + str(prize1))
             f.write("\n")
 
     # function to compare list 2 to lotto list
     def lottery_draw2(self):
-        global prize
+        global prize2
         y = 0
         lotto = random.sample(range(1, 50), 6)
         lotto.sort()
@@ -193,23 +197,23 @@ class LottoPage:
             # if self.list2[i] == lotto[i]:
             y += 1
         if y == 6 and y == len(match):
-            prize = 10000000
+            prize2 = 10000000
         elif y == 5 and y == len(match):
-            prize = 8584
+            prize2 = 8584
         elif y == 4 and y == len(match):
-            prize = 2384
+            prize2 = 2384
         elif y == 3 and y == len(match):
-            prize = 100.50
+            prize2 = 100.50
         elif y == 2 and y == len(match):
-            prize = 20
+            prize2 = 20
         elif y < 2 and y == len(match):
-            prize = 0
+            prize2 = 0
         messagebox.showinfo("Status", "Set had: " + str(y))
         messagebox.showinfo("Lotto", "Numbers are: " + str(lotto) + "\n" + str(match))
-        messagebox.showinfo("Winnings", "You have won R" + str(prize))
-        self.prize_lab2.config(text=prize)
+        messagebox.showinfo("Winnings", "You have won R" + str(prize2))
+        self.prize_lab2.config(text=prize2)
         with open("Emails.txt", "a+") as f:
-            f.write(str(prize))
+            f.write("Your winnings in rands: R" + str(prize2))
             f.write("\n")
 
     # function comparing all the list to 3 separate lotto list
@@ -217,7 +221,7 @@ class LottoPage:
         self.lotto_draw1()
         self.lottery_draw2()
 
-        global prize
+        global prize3
         y = 0
         lotto = random.sample(range(1, 50), 6)
         lotto.sort()
@@ -227,23 +231,23 @@ class LottoPage:
             # if self.list3[j] == lotto[j]:
             y += 1
         if y == 6 and y == len(match):
-            prize = 10000000
+            prize3 = 10000000
         elif y == 5 and y == len(match):
-            prize = 8584
+            prize3 = 8584
         elif y == 4 and y == len(match):
-            prize = 2384
+            prize3 = 2384
         elif y == 3 and y == len(match):
-            prize = 100.50
+            prize3 = 100.50
         elif y == 2 and y == len(match):
-            prize = 20
+            prize3 = 20
         elif y < 2 and y == len(match):
-            prize = 0
+            prize3 = 0
         messagebox.showinfo("Status", "Set had: " + str(y))
         messagebox.showinfo("Lotto", "Numbers are: " + str(lotto) + "\n" + str(match))
-        messagebox.showinfo("Winnings", "You have won R" + str(prize))
-        self.prize_lab3.config(text=prize)
+        messagebox.showinfo("Winnings", "You have won R" + str(prize3))
+        self.prize_lab3.config(text=prize3)
         with open("Emails.txt", "a+") as f:
-            f.write(str(prize))
+            f.write("Your winnings in rands: R" + str(prize3))
             f.write("\n")
 
     # function to put values to the button and add them to the empty list

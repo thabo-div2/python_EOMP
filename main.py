@@ -6,6 +6,7 @@ from tkinter import messagebox
 from datetime import datetime
 import re
 import smtplib
+from playsound import playsound
 
 root = Tk()
 root.geometry("650x650")
@@ -60,6 +61,8 @@ class Login:
                         f.write(self.name_entry.get())
                         f.write("\n")
                         f.write(self.id_entry.get())
+                        f.write("\n")
+                        f.write(str(dt))
                         f.write("\n")
                 else:
                     messagebox.showerror("Error", "Invalid Email")

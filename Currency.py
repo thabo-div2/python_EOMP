@@ -2,6 +2,8 @@
 from tkinter import *
 from tkinter import ttk
 import requests
+import smtplib
+from playsound import playsound
 
 
 # tkinter window
@@ -24,6 +26,8 @@ class CurrencyConverter:
         self.convert_lab1.place(x=10, y=250)
         self.bank_local = Label(master, text="Please pick your bank: ")
         self.bank_local.place(x=10, y=300)
+        self.foreign = Label(master, text="")
+        self.foreign.place(x=10, y=500)
 
         # Entries
         self.bank_name = Entry(master)
@@ -54,14 +58,15 @@ class CurrencyConverter:
         self.bank_cb.place(x=170, y=300)
 
         # Buttons
-        self.convert_btn = Button(master, text="Convert Currency")
+        self.convert_btn = Button(master, text="Convert Currency", command=self.convert_func)
         self.convert_btn.place(x=350, y=250)
         self.submit_info = Button(master, text="Submit Info")
         self.submit_info.place(x=10, y=450)
 
     # function to submit information and winnings
     def convert_func(self):
-        pass
+        x = self.data['conversion_rates'][self.rates_cb.get()]
+        self.foreign.config(text=x)
 
 
 
