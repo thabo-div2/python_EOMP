@@ -69,6 +69,7 @@ class Login:
                         f.write(self.id_entry.get())
                         f.write("\n")
                 else:
+                    playsound("./Sound/erro.mp3")
                     messagebox.showerror("Error", "Invalid Email")
                     root.destroy()
             for x in range(int(self.id_entry.get())):
@@ -81,12 +82,15 @@ class Login:
                     messagebox.showerror("Error", "Not a valid ID number")
                     break
                 else:
+                    playsound("./Sound/erro.mp3")
                     messagebox.showerror("Error", "You are too young to play Lotto")
                     break
         except ValueError:
             if self.id_entry.get() != int:
+                playsound("./Sound/erro.mp3")
                 messagebox.showerror("Error", "The id number must be an integer")
             elif self.name_entry.get() != str:
+                playsound("./Sound/erro.mp3")
                 messagebox.showerror("Error", "Name must be a string or in letters")
 
     # function for clear button

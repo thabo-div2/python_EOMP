@@ -11,28 +11,28 @@ from playsound import playsound
 currency = Tk()
 currency.geometry("650x650")
 currency.title("Currency Converter")
-currency.config(bg="green")
+currency.config(bg="#ffff00")
 
 
 class CurrencyConverter:
     def __init__(self, master):
         # Labels
-        self.currency_lab1 = Label(master, text="Account Name: ")
+        self.claim_label = Label(master, text="Claim Your Prize!", font="Arial 20", bg="#ffff00")
+        self.claim_label.place(x=10, y=10)
+        self.currency_lab1 = Label(master, text="Account Name: ", bg="#ffff00")
         self.currency_lab1.place(x=10, y=100)
-        self.banking_lab = Label(master, text="Account Number: ")
+        self.banking_lab = Label(master, text="Account Number: ", bg="#ffff00")
         self.banking_lab.place(x=10, y=150)
-        self.winnings = Label(master, text="Your winnings(in rands): ")
+        self.winnings = Label(master, text="Your winnings(in rands): ", bg="#ffff00")
         self.winnings.place(x=10, y=200)
-        self.convert_lab1 = Label(master, text="Convert to your countries currency: ")
+        self.convert_lab1 = Label(master, text="Convert to your countries currency: ", bg="#ffff00")
         self.convert_lab1.place(x=10, y=250)
-        self.bank_local = Label(master, text="Please pick your bank: ")
+        self.bank_local = Label(master, text="Please pick your bank: ", bg="#ffff00")
         self.bank_local.place(x=10, y=300)
-        self.prize = Label(master, text="")
+        self.prize = Label(master, text="", bg="#ffff00")
         self.prize.place(x=170, y=200)
-        self.foreign = Label(master, text="")
+        self.foreign = Label(master, text="", bg="#ffff00")
         self.foreign.place(x=10, y=500)
-        self.example = Label(master, text="")
-        self.example.place(x=10, y=700)
 
         # Entries
         self.bank_name = Entry(master)
@@ -61,9 +61,9 @@ class CurrencyConverter:
         self.bank_cb.place(x=170, y=300)
 
         # Buttons
-        self.convert_btn = Button(master, text="Convert Currency", command=self.convert_func)
+        self.convert_btn = Button(master, text="Convert Currency", command=self.convert_func, bg="#CD7F32", fg="#ffffff")
         self.convert_btn.place(x=350, y=250)
-        self.submit_info = Button(master, text="Submit Info", command=self.submit_line)
+        self.submit_info = Button(master, text="Submit Info", command=self.submit_line, bg="green", fg="#ffffff")
         self.submit_info.place(x=10, y=450)
 
     # function to submit information and winnings
@@ -78,6 +78,7 @@ class CurrencyConverter:
             new_currency = x * float(mywinnings[0])
             self.foreign.config(text=new_currency)
         except requests.exceptions.ConnectionError:
+            playsound("./Sound/erro.mp3")
             messagebox.showerror("Error", "No internet connection")
 
     def submit_line(self):
@@ -88,6 +89,7 @@ class CurrencyConverter:
                 w.write("\n")
                 w.write("Bank Account Number: " + str(int(self.bank_account.get())))
                 w.write("\n")
+                w.write("Bank: " + str(self.bank_cb.get()))
             with open("Emails.txt", "+r") as f:
                 line = f.readline()
                 email_line.append(line)
@@ -103,11 +105,14 @@ class CurrencyConverter:
             s.quit()
         except ValueError:
             if self.bank_name.get() != str:
+                playsound("./Sound/erro.mp3")
                 messagebox.showerror("Error", "Must be in letters or characters or strings")
             if self.bank_account.get() != int:
+                playsound("./Sound/erro.mp3")
                 messagebox.showerror("Error", "Must be in numbers")
+
         except smtplib.SMTPException:
-            pass
+            playsound("./Sound/erro.mp3")
 
 
 CurrencyConverter(currency)

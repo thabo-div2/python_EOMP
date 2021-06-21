@@ -290,6 +290,7 @@ class LottoPage:
             self.answer3.config(text=self.list3)
 
         else:
+            playsound("./Sound/erro.mp3")
             messagebox.showerror("Error", "You can choose a number once")
 
     def claim_prize_func(self):
