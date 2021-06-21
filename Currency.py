@@ -93,9 +93,9 @@ class CurrencyConverter:
                 email_line.append(line)
                 line2 = f.read()
             s = smtplib.SMTP('smtp.gmail.com', 587)
-            sender = '3981212@myuwc.ac.za'
+            sender = 'lifechoiceslotto147@gmail.com'
             receive = str(email_line[0])
-            password = '9903156253086'
+            password = 'lifechoices2021'
             s.starttls()
             s.login(sender, password)
             message = str(line2)
