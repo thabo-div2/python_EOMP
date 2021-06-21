@@ -253,8 +253,8 @@ class LottoPage:
         total = prize1 + prize2 + prize3
         self.prize_total.config(text=total)
         if total == 0:
-            messagebox.askyesno("Retry", "Try your luck again?")
-            if "Yes":
+            mes = messagebox.askyesno("Retry", "Try your luck again?")
+            if mes == "yes":
                 self.answer1.config(text="")
                 self.answer2.config(text="")
                 self.answer3.config(text="")
@@ -265,6 +265,8 @@ class LottoPage:
                 self.list1 = []
                 self.list2 = []
                 self.list3 = []
+            elif mes == 'no':
+                window.destroy()
         with open("Emails.txt", "a+") as f:
             f.write("Your 3rd winnings in rands: R" + str(prize3))
             f.write("\n")

@@ -7,6 +7,7 @@ from datetime import datetime
 import re
 import smtplib
 from playsound import playsound
+import random
 
 root = Tk()
 root.geometry("650x650")
@@ -52,13 +53,14 @@ class Login:
     def player_id(self):
         dt = datetime.today()
         ex = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
+        id_play = random.randint(0, 10000)
         try:
             for i in range(len(self.email_entry.get())):
                 if re.search(ex, self.email_entry.get()):
                     with open("Emails.txt", "w+") as f:
                         f.write(self.email_entry.get())
                         f.write("\n")
-                        f.write(str(self.name_entry.get()[0:3]) + str(self.id_entry.get()[0:2]))
+                        f.write(str(self.name_entry.get()[0:3]) + str(self.id_entry.get()[0:2]) + str(id_play))
                         f.write("\n")
                         f.write(str(dt))
                         f.write("\n")

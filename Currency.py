@@ -17,9 +17,9 @@ currency.config(bg="green")
 class CurrencyConverter:
     def __init__(self, master):
         # Labels
-        self.currency_lab1 = Label(master, text="Banking Details: ")
+        self.currency_lab1 = Label(master, text="Account Name: ")
         self.currency_lab1.place(x=10, y=100)
-        self.banking_lab = Label(master, text="Account Name: ")
+        self.banking_lab = Label(master, text="Account Number: ")
         self.banking_lab.place(x=10, y=150)
         self.winnings = Label(master, text="Your winnings(in rands): ")
         self.winnings.place(x=10, y=200)
@@ -83,18 +83,29 @@ class CurrencyConverter:
     def submit_line(self):
         email_line = []
         try:
+            with open("Emails.txt", "+a") as w:
+                w.write("Bank Account Name: " + str(self.bank_name.get()))
+                w.write("\n")
+                w.write("Bank Account Number: " + str(int(self.bank_account.get())))
+                w.write("\n")
             with open("Emails.txt", "+r") as f:
                 line = f.readline()
                 email_line.append(line)
+                line2 = f.read()
             s = smtplib.SMTP('smtp.gmail.com', 587)
             sender = '3981212@myuwc.ac.za'
             receive = str(email_line[0])
             password = '9903156253086'
             s.starttls()
             s.login(sender, password)
-            message = str(email_line[0:])
+            message = str(line2)
             s.sendmail(sender, receive, message)
             s.quit()
+        except ValueError:
+            if self.bank_name.get() != str:
+                messagebox.showerror("Error", "Must be in letters or characters or strings")
+            if self.bank_account.get() != int:
+                messagebox.showerror("Error", "Must be in numbers")
         except smtplib.SMTPException:
             pass
 
