@@ -58,11 +58,13 @@ class Login:
                     with open("Emails.txt", "w+") as f:
                         f.write(self.email_entry.get())
                         f.write("\n")
+                        f.write(str(self.name_entry.get()[0:3]) + str(self.id_entry.get()[0:2]))
+                        f.write("\n")
+                        f.write(str(dt))
+                        f.write("\n")
                         f.write(self.name_entry.get())
                         f.write("\n")
                         f.write(self.id_entry.get())
-                        f.write("\n")
-                        f.write(str(dt))
                         f.write("\n")
                 else:
                     messagebox.showerror("Error", "Invalid Email")

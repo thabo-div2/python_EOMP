@@ -3,7 +3,7 @@
 from tkinter import *
 from tkinter import messagebox
 import random
-import smtplib
+from datetime import datetime
 from playsound import playsound
 
 
@@ -42,6 +42,8 @@ class LottoPage:
         self.prize_lab2.place(x=270, y=410)
         self.prize_lab3 = Label(self.frame, text="", bg="#ffff00")
         self.prize_lab3.place(x=270, y=450)
+        self.prize_total = Label(self.frame, text="", bg="#ffff00")
+        self.prize_total.place(x=370, y=450)
         # Buttons
         self.first = Button(self.frame, text="1", command=lambda: self.play_num(1))
         self.first.place(x=10, y=50)
@@ -182,7 +184,9 @@ class LottoPage:
         messagebox.showinfo("Winnings", "You have won R" + str(prize1))
         self.prize_lab.config(text=prize1)
         with open("Emails.txt", "a+") as f:
-            f.write("Your winnings in rands: R" + str(prize1))
+            f.write(str(datetime.today()))
+            f.write("\n")
+            f.write("Your 1st winnings in rands: R" + str(prize1))
             f.write("\n")
 
     # function to compare list 2 to lotto list
@@ -213,7 +217,7 @@ class LottoPage:
         messagebox.showinfo("Winnings", "You have won R" + str(prize2))
         self.prize_lab2.config(text=prize2)
         with open("Emails.txt", "a+") as f:
-            f.write("Your winnings in rands: R" + str(prize2))
+            f.write("Your 2nd winnings in rands: R" + str(prize2))
             f.write("\n")
 
     # function comparing all the list to 3 separate lotto list
@@ -246,9 +250,28 @@ class LottoPage:
         messagebox.showinfo("Lotto", "Numbers are: " + str(lotto) + "\n" + str(match))
         messagebox.showinfo("Winnings", "You have won R" + str(prize3))
         self.prize_lab3.config(text=prize3)
+        total = prize1 + prize2 + prize3
+        self.prize_total.config(text=total)
+        if total == 0:
+            messagebox.askyesno("Retry", "Try your luck again?")
+            if "Yes":
+                self.answer1.config(text="")
+                self.answer2.config(text="")
+                self.answer3.config(text="")
+                self.prize_lab.config(text="")
+                self.prize_lab2.config(text="")
+                self.prize_lab3.config(text="")
+                self.prize_total.config(text="")
+                self.list1 = []
+                self.list2 = []
+                self.list3 = []
         with open("Emails.txt", "a+") as f:
-            f.write("Your winnings in rands: R" + str(prize3))
+            f.write("Your 3rd winnings in rands: R" + str(prize3))
             f.write("\n")
+            f.write("Your Total Prize: " + str(total))
+            f.write("\n")
+        with open("Prizes.txt", "w+") as read:
+            read.write(str(total))
 
     # function to put values to the button and add them to the empty list
     def play_num(self, num):

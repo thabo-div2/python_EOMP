@@ -1,6 +1,7 @@
 # Thabo Setsubi Class 2
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 import requests
 import smtplib
 from playsound import playsound
@@ -20,22 +21,24 @@ class CurrencyConverter:
         self.currency_lab1.place(x=10, y=100)
         self.banking_lab = Label(master, text="Account Name: ")
         self.banking_lab.place(x=10, y=150)
-        self.winnings = Label(master, text="Enter your winnings: ")
+        self.winnings = Label(master, text="Your winnings(in rands): ")
         self.winnings.place(x=10, y=200)
         self.convert_lab1 = Label(master, text="Convert to your countries currency: ")
         self.convert_lab1.place(x=10, y=250)
         self.bank_local = Label(master, text="Please pick your bank: ")
         self.bank_local.place(x=10, y=300)
+        self.prize = Label(master, text="")
+        self.prize.place(x=170, y=200)
         self.foreign = Label(master, text="")
         self.foreign.place(x=10, y=500)
+        self.example = Label(master, text="")
+        self.example.place(x=10, y=700)
 
         # Entries
         self.bank_name = Entry(master)
         self.bank_name.place(x=150, y=100)
         self.bank_account = Entry(master)
         self.bank_account.place(x=150, y=150)
-        self.prize = Entry(master)
-        self.prize.place(x=170, y=200)
 
         # Combobox
         self.url = 'https://v6.exchangerate-api.com/v6/86ad406dd027a7f9eb86121b/latest/ZAR'
@@ -60,14 +63,40 @@ class CurrencyConverter:
         # Buttons
         self.convert_btn = Button(master, text="Convert Currency", command=self.convert_func)
         self.convert_btn.place(x=350, y=250)
-        self.submit_info = Button(master, text="Submit Info")
+        self.submit_info = Button(master, text="Submit Info", command=self.submit_line)
         self.submit_info.place(x=10, y=450)
 
     # function to submit information and winnings
     def convert_func(self):
-        x = self.data['conversion_rates'][self.rates_cb.get()]
-        self.foreign.config(text=x)
+        try:
+            x = self.data['conversion_rates'][self.rates_cb.get()]
+            mywinnings = []
+            with open("Prizes.txt", "rt") as myfile:
+                for myline in myfile:
+                    mywinnings.append(int(myline))
+                    self.prize.config(text=mywinnings[0])
+            new_currency = x * float(mywinnings[0])
+            self.foreign.config(text=new_currency)
+        except requests.exceptions.ConnectionError:
+            messagebox.showerror("Error", "No internet connection")
 
+    def submit_line(self):
+        email_line = []
+        try:
+            with open("Emails.txt", "+r") as f:
+                line = f.readline()
+                email_line.append(line)
+            s = smtplib.SMTP('smtp.gmail.com', 587)
+            sender = '3981212@myuwc.ac.za'
+            receive = str(email_line[0])
+            password = '9903156253086'
+            s.starttls()
+            s.login(sender, password)
+            message = str(email_line[0:])
+            s.sendmail(sender, receive, message)
+            s.quit()
+        except smtplib.SMTPException:
+            pass
 
 
 CurrencyConverter(currency)
