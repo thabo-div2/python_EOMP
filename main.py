@@ -44,9 +44,9 @@ class Login:
         self.exit_btn = Button(self.frame, text="Exit", command=self.exit_func)
         self.exit_btn.place(x=145, y=155)
         # Image
-        self.canvas = Canvas(self.frame, width=500, height=400)
-        self.canvas.place(x=10, y=200)
-        self.img = PhotoImage(file="8ba14010ac1b42b89d3fd08ac65c4626.png")
+        self.canvas = Canvas(self.frame, width=600, height=400, bg="#ffff00")
+        self.canvas.place(x=-10, y=200)
+        self.img = PhotoImage(file="79b3c5f0-lotto-results.jpg.optimal-removebg-preview.png")
         self.canvas.create_image(10, 10, anchor=NW, image=self.img)
 
     # function verifying age and email of the user
